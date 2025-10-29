@@ -214,5 +214,34 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "content-fragment",
+    "fields": [
+      {
+        "component": "aem-content-fragment",
+        "name": "path",
+        "label": "Content Fragment Path",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "variation",
+        "value": "",
+        "label": "Variation",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "master"
+          },
+          {
+            "name": "Variation 1",
+            "value": "Variation 1"
+          }
+        ]
+      }
+    ]
   }
 ]

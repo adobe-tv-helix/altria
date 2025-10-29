@@ -12,6 +12,14 @@ import {
   loadCSS,
 } from './aem.js';
 
+window.GLOBALS = window.GLOBALS || {};
+window.GLOBALS.DEFAULT_AEM_AUTHOR_URL = 'https://author-p165656-e1765155.adobeaemcloud.com';
+window.GLOBALS.DEFAULT_AEM_PUBLISH_URL = 'https://publish-p165656-e1765155.adobeaemcloud.com';
+
+export function isAuthorEnvironment() {
+  return document.querySelector('*[data-aue-resource]') !== null;
+}
+
 /**
  * Moves all the attributes from a given elmenet to another given element.
  * @param {Element} from the element to copy attributes from
