@@ -1,13 +1,13 @@
 {
   "mappings": [
-    "/content/altria/:/",
-    "/content/altria/configuration:/.helix/config.json",
-    "/content/altria/metadata:/metadata.json",
-    "/content/altria/redirects:/redirects.json",
-    "/content/altria/headers:/.helix/headers.json"
+    "/content/altria-ue/:/",
+    "/content/altria-ue/configuration:/.helix/config.json",
+    "/content/altria-ue/metadata:/metadata.json",
+    "/content/altria-ue/redirects:/redirects.json",
+    "/content/altria-ue/headers:/.helix/headers.json"
   ],
   "includes": [
-    "/content/altria/",
+    "/content/altria-ue/",
     "/content/dam/altria/",
     "/content/dam/altria/fragments/"
   ]
