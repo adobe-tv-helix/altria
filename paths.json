@@ -1,10 +1,14 @@
 {
   "mappings": [
-    "/content/aem-boilerplate/:/",
-    "/content/aem-boilerplate/configuration:/.helix/config.json",
-    "/content/aem-boilerplate/metadata:/metadata.json"
+    "/content/altria/:/",
+    "/content/altria/configuration:/.helix/config.json",
+    "/content/altria/metadata:/metadata.json",
+    "/content/altria/redirects:/redirects.json",
+    "/content/altria/headers:/.helix/headers.json"
   ],
   "includes": [
-    "/content/aem-boilerplate/"
+    "/content/altria/",
+    "/content/dam/altria/",
+    "/content/dam/altria/fragments/"
   ]
 }
