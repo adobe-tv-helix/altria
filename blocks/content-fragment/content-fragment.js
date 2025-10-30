@@ -68,6 +68,22 @@ export default async function decorate(block) {
     return `<p data-aue-label="audiences-${idx}" class='audiences'>${audienceLabel}</p>`;
   }).join('');
 
+  const brandsInAudiencesHtml = (cfReq?.audiences?.brands || {}).map((brand, idx) => {
+    let brandsLabel;
+
+    if (brand._path.includes('njoy')) {
+        brandsLabel = 'NJOY';
+    } else if (brand._path.includes('helix-innovations')) {
+        brandsLabel = 'Helix Innovations';
+    } else if (brand._path.includes('john-middleton-company')) {
+        brandsLabel = 'John Middleton Company';
+    } else if (brand._path.includes('philip-morris-usa')) {
+        brandsLabel = 'Philip Morris USA';
+    } else if (brand._path.includes('us-smokeless-tobacco-company')) {
+        brandsLabel = 'US Smokeless Tobacco Company';
+    }
+  }).join('');
+
   block.innerHTML = `
     <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="Announcement CF" data-aue-type="reference" data-aue-filter="cf">
 		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0), rgba(0,0,0,0) 80%) ,url(${aemAuthorUrl + cfReq?.heroImage?._path});">
@@ -77,10 +93,11 @@ export default async function decorate(block) {
           Audiences:
           <div>
             ${audiencesHtml}
+            <p>&nbsp;nbsp;Brands: ${brandsInAudiencesHtml}</p>
           </div>
-          At a Glance:<p data-aue-prop="atAGlance" data-aue-label="At a Glance" data-aue-type="richtext" class='detail'>${
+          At a Glance:<div data-aue-prop="atAGlance" data-aue-label="At a Glance" data-aue-filter="text" data-aue-type="richtext" class='detail'>${
             cfReq?.atAGlance?.html
-          }</p>
+          }</div>
           Channel(s):<p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
             cfReq?.channels
           }</p>
