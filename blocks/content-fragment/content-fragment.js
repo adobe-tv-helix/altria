@@ -45,7 +45,26 @@ export default async function decorate(block) {
 
   block.setAttribute('data-aue-type', 'container');
 
-  renderFragment(cfReq, block);
+  block.innerHTML = `
+  <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="offer content fragment" data-aue-type="reference" data-aue-filter="cf">
+		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0.6), rgba(0,0,0,0.1) 80%) ,url(${aemAuthorUrl + cfReq.heroImage?._path
+    });">
+          <p data-aue-prop="subject" data-aue-label="subject" data-aue-type="text" class='pretitle'>${
+            cfReq?.subject
+          }</p>
+          <p data-aue-prop="pretitle" data-aue-label="pretitle" data-aue-type="text" class='headline'>${
+            cfReq?.audiences[0].audienceType
+          }</p>
+          <p data-aue-prop="detail" data-aue-label="detail" data-aue-type="richtext" class='detail'>${
+            cfReq?.atAGlance?.html
+          }</p>
+
+      </div>
+      <div class='banner-logo'>
+      </div>
+  </div>
+	`;
+  //renderFragment(cfReq, block);
 
   if (!isAuthor) {
     moveInstrumentation(block, null);
