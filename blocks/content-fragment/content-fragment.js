@@ -57,14 +57,14 @@ export default async function decorate(block) {
   block.innerHTML = `
     <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="Announcement CF" data-aue-type="reference" data-aue-filter="cf">
 		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0), rgba(0,0,0,0) 80%) ,url(${aemAuthorUrl + cfReq?.heroImage?._path});">
-          Subject:<p data-aue-prop="subject" data-aue-label="subject" data-aue-type="text" class='subject'>${
+          Subject:<p data-aue-prop="subject" data-aue-label="Subject" data-aue-type="text" class='subject'>${
             cfReq?.subject
           }</p>
           Audiences:
           <div>
             ${audiencesHtml}
           </div>
-          At a Glance:<p data-aue-prop="atAGlance" data-aue-label="At a Glance" data-aue-type="richtext" class='detail'>${
+          At a Glance:<p data-aue-prop="atAGlance" data-aue-label="At a Glance" data-aue-type="text" class='detail'>${
             cfReq?.atAGlance?.html
           }</p>
           Channel(s):<p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
