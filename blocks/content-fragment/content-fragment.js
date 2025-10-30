@@ -45,12 +45,29 @@ export default async function decorate(block) {
 
   block.setAttribute('data-aue-type', 'container');
 
+  Object.entries(cfReq).forEach(([name, value]) => {
+        const el = document.createElement('div');
+        el.innerHTML = `<strong>${name}:</strong> ${value.item}`;
+        container.appendChild(el);
+      });
+
   block.innerHTML = `
   <div class='main flex-spaced-wrap-between-reversed-top-block-1024'>
     ${cfReq?.subject ? `
 		<div>
-        Subject:<br>
-        ${cfReq?.subject}
+            Subject:<br>
+            ${cfReq?.subject}
+        </div>
+    ` : ''} 
+    ${cfReq?.audiences ? `
+		<div>
+            Audience:<br>
+            &nbsp;&nbsp;&nbsp;Brands:<br>
+            ${cfReq?.audiences?.brands
+                .map(brand => `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div>${brand.logo._path}</div>`)
+                .join(`<br>`)}
+            <br>
+            ${cfReq?.audiences?.audienceType}
         </div>
     ` : ''} 
     <aside class="sub-zone side-zone" id="SubZoneRight" role="presentation">
