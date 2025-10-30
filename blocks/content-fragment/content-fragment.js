@@ -45,6 +45,11 @@ export default async function decorate(block) {
 
   block.setAttribute('data-aue-type', 'container');
 
+  const sectionsHtml = (cfReq?.section || []).map((section, idx) => `
+    <p data-aue-label="sections-${idx}" class='sections'>${section.label}</p>
+    <p data-aue-label="sections-${idx}-body" class='sections'>${section.body?.html}</p>
+    `).join('');
+
   block.innerHTML = `
   <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="content fragment" data-aue-type="reference" data-aue-filter="cf">
 		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0), rgba(0,0,0,0) 80%) ,url(${aemAuthorUrl + cfReq.heroImage?._path});">
@@ -59,8 +64,7 @@ export default async function decorate(block) {
           }</p>
           Sections:
           <div>
-            <p data-aue-label="sections-0" class='sections'>${cfReq?.section[0].label}</p>
-            <p data-aue-label="sections-0-body" class='sections'>${cfReq?.section[0].body.html}</p>
+            ${sectionsHtml}
           </div>
       </div>
       <div class='banner-logo'>
