@@ -259,42 +259,63 @@ console.log(cfReq?.audiences);
 </div>
 `;
 
-  renderFragmentElements(cfReq, block);
-  
+  renderFragment(cfReq, block);
+
   if (!isAuthor) {
     moveInstrumentation(block, null);
     block.querySelectorAll('*').forEach((elem) => moveInstrumentation(elem, null));
   }
 }
 
-async function renderFragmentElements(data, container) {
-    Object.entries(data).forEach(([key, value]) => {
-    // If value is another fragment (object with recognizable structure), recurse
-    if (value && typeof value === 'object' && value._isContentFragment) { // Custom detection, adjust as needed
+// Helper function to check if object is a nested fragment
+async function isNestedFragment(obj) {
+  // You can adapt detection (e.g. _path + label + body + etc.) to your schema!
+  return obj &&
+    typeof obj === 'object' &&
+    '_path' in obj &&
+    ('body' in obj || 'label' in obj);
+}
+
+// Recursively render CF or nested fragment
+async function renderFragment(data, parentDiv) {
+  Object.entries(data).forEach(([key, value]) => {
+    // Handle arrays (e.g. sections, audiences, brands)
+    if (Array.isArray(value)) {
+      value.forEach((item, idx) => {
+        const arrDiv = document.createElement('div');
+        arrDiv.innerHTML = `<strong>${key}[${idx}]:</strong>`;
+        if (isNestedFragment(item)) {
+          renderFragment(item, arrDiv);
+        } else if (typeof item === 'object') {
+          renderFragment(item, arrDiv);
+        } else {
+          arrDiv.innerHTML += ` ${item}`;
+        }
+        parentDiv.appendChild(arrDiv);
+      });
+    }
+    // Handle nested objects/fragments
+    else if (isNestedFragment(value)) {
       const nestedDiv = document.createElement('div');
       nestedDiv.innerHTML = `<strong>${key} (nested fragment):</strong>`;
-      renderFragmentElements(value.elements, nestedDiv); // Recursively render nested fragment
-      container.appendChild(nestedDiv);
-    } else if (Array.isArray(value)) {
-      // For arrays (e.g., multi-fields or referenced lists)
-      value.forEach((item, idx) => {
-        if (item && typeof item === 'object' && item._isContentFragment) {
-          // Nested fragment in array
-          const nestedList = document.createElement('div');
-          nestedList.innerHTML = `<strong>${key}[${idx}] (nested fragment):</strong>`;
-          renderFragmentElements(item.elements, nestedList);
-          container.appendChild(nestedList);
-        } else {
-          const div = document.createElement('div');
-          div.innerHTML = `<strong>${key}[${idx}]:</strong> ${item}`;
-          container.appendChild(div);
-        }
-      });
-    } else {
-      // Primitive value
+      renderFragment(value, nestedDiv);
+      parentDiv.appendChild(nestedDiv);
+    }
+    // Handle HTML bodies
+    else if (
+      value &&
+      typeof value === 'object' &&
+      'html' in value
+    ) {
+      const div = document.createElement('div');
+      div.innerHTML = `<strong>${key}:</strong> ${value.html}`;
+      parentDiv.appendChild(div);
+    }
+    // Handle primitives (string, number, etc)
+    else {
       const div = document.createElement('div');
       div.innerHTML = `<strong>${key}:</strong> ${value}`;
-      container.appendChild(div);
+      parentDiv.appendChild(div);
     }
   });
 }
