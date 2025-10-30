@@ -50,9 +50,23 @@ export default async function decorate(block) {
     <p data-aue-label="sections-${idx}-body" class='sections'>${section.body?.html}</p>
     `).join('');
 
-  const audiencesHtml = (cfReq?.audiences || []).map((audience, idx) => `
-    <p data-aue-label="audiences-${idx}" class='audiences'>${audience._path}</p>
-    `).join('');
+  const audiencesHtml = (cfReq?.audiences || []).map((audience, idx) => {
+    let audienceLabel;
+
+    if (audience._path.includes('all-pm-usa-usstc-jmc-helix-and-njoy-direct-customers')) {
+        audienceLabel = 'All PM USA, USSTC, JMC, Helix, and NJOY Direct Customers';
+    } else if (audience._path.includes('all-jmc-direct-customers')) {
+        audienceLabel = 'All JMC Direct Customers';
+    } else if (audience._path.includes('all-pm-usa-direct-customers')) {
+        audienceLabel = 'All PM USA Direct Customers';
+    } else if (audience._path.includes('usstc-retail-excluding-ma-nj')) {
+        audienceLabel = 'All USSTC Retail Contracted Stores Excluding MA and NJ';
+    } else {
+        audienceLabel = 'General Audience'; // Fallback value
+    }
+
+    return `<p data-aue-label="audiences-${idx}" class='audiences'>${audienceLabel}</p>`;
+  }).join('');
 
   block.innerHTML = `
     <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="Announcement CF" data-aue-type="reference" data-aue-filter="cf">
