@@ -268,50 +268,40 @@ console.log(cfReq?.audiences);
 }
 
 // Helper function to check if object is a nested fragment
-async function isNestedFragment(obj) {
-  // You can adapt detection (e.g. _path + label + body + etc.) to your schema!
-  return obj &&
-    typeof obj === 'object' &&
-    '_path' in obj &&
-    ('body' in obj || 'label' in obj);
+function isNestedFragment(obj) {
+  return obj && typeof obj === 'object' && '_path' in obj && ('body' in obj || 'label' in obj);
 }
 
 // Recursively render CF or nested fragment
-async function renderFragment(data, parentDiv) {
+function renderFragment(data, parentDiv, visited = new Set(), depth = 0) {
+  if (visited.has(data)) return;
+  visited.add(data);
+  if (depth > 20) return; // Prevent stack overflow
+
   Object.entries(data).forEach(([key, value]) => {
-    // Handle arrays (e.g. sections, audiences, brands)
     if (Array.isArray(value)) {
       value.forEach((item, idx) => {
         const arrDiv = document.createElement('div');
         arrDiv.innerHTML = `<strong>${key}[${idx}]:</strong>`;
-        if (isNestedFragment(item)) {
-          renderFragment(item, arrDiv);
-        } else if (typeof item === 'object') {
-          renderFragment(item, arrDiv);
+        if (isNestedFragment(item) || typeof item === 'object') {
+          renderFragment(item, arrDiv, visited, depth + 1);
         } else {
           arrDiv.innerHTML += ` ${item}`;
         }
         parentDiv.appendChild(arrDiv);
       });
     }
-    // Handle nested objects/fragments
     else if (isNestedFragment(value)) {
       const nestedDiv = document.createElement('div');
       nestedDiv.innerHTML = `<strong>${key} (nested fragment):</strong>`;
-      renderFragment(value, nestedDiv);
+      renderFragment(value, nestedDiv, visited, depth + 1);
       parentDiv.appendChild(nestedDiv);
     }
-    // Handle HTML bodies
-    else if (
-      value &&
-      typeof value === 'object' &&
-      'html' in value
-    ) {
+    else if (value && typeof value === 'object' && 'html' in value) {
       const div = document.createElement('div');
       div.innerHTML = `<strong>${key}:</strong> ${value.html}`;
       parentDiv.appendChild(div);
     }
-    // Handle primitives (string, number, etc)
     else {
       const div = document.createElement('div');
       div.innerHTML = `<strong>${key}:</strong> ${value}`;
