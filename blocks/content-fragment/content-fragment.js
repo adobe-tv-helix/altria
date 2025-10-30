@@ -47,7 +47,7 @@ export default async function decorate(block) {
 
   block.innerHTML = `
   <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="content fragment" data-aue-type="reference" data-aue-filter="cf">
-		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0.6), rgba(0,0,0,0) 80%) ,url(${aemAuthorUrl + cfReq.heroImage?._path});">
+		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0.6), rgba(0,0,0,0.1) 80%) ,url(${aemAuthorUrl + cfReq.heroImage?._path});">
           <p data-aue-prop="subject" data-aue-label="subject" data-aue-type="text" class='subject'>${
             cfReq?.subject
           }</p>
