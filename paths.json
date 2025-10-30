@@ -4,7 +4,8 @@
     "/content/altria-ue/configuration:/.helix/config.json",
     "/content/altria-ue/metadata:/metadata.json",
     "/content/altria-ue/redirects:/redirects.json",
-    "/content/altria-ue/headers:/.helix/headers.json"
+    "/content/altria-ue/headers:/.helix/headers.json",
+    "/content/dam/atria/:/"
   ],
   "includes": [
     "/content/altria-ue/",
