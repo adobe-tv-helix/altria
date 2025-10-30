@@ -45,12 +45,6 @@ export default async function decorate(block) {
 
   block.setAttribute('data-aue-type', 'container');
 
-  Object.entries(cfReq).forEach(([name, value]) => {
-        const el = document.createElement('div');
-        el.innerHTML = `<strong>${name}:</strong> ${value.item}`;
-        container.appendChild(el);
-      });
-
   block.innerHTML = `
   <div class='main flex-spaced-wrap-between-reversed-top-block-1024'>
     ${cfReq?.subject ? `
