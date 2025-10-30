@@ -68,7 +68,7 @@ export default async function decorate(block) {
     return `<p data-aue-label="audiences-${idx}" class='audiences'>${audienceLabel}</p>`;
   }).join('');
 
-  const brandsInAudiencesHtml = (cfReq?.audiences?.brands || {}).map((brand, idx) => {
+  const brandsInAudiencesHtml = (cfReq?.audiences?.brands || []).map((brand, idx) => {
     let brandsLabel;
 
     if (brand._path.includes('njoy')) {
