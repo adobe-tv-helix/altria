@@ -53,17 +53,7 @@ console.log(cfReq?.audiences);
             ${cfReq?.subject}
         </div>
     ` : ''} 
-    ${cfReq?.audiences ? `
-		<div>
-            Audience:<br>
-            &nbsp;&nbsp;&nbsp;Brands:<br>
-            ${cfReq?.audiences?.brands
-                .map(brand => `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div>${brand.logo._path}</div>`)
-                .join(`<br>`)}
-            <br>
-            ${cfReq?.audiences?.audienceType}
-        </div>
-    ` : ''} 
+
     <aside class="sub-zone side-zone" id="SubZoneRight" role="presentation">
         <section class="system-style system-entry no-padding physician ui-repeater visible" id="PhysiciansSideInfo" universal_="true" data-onvisible="visible">	
             <figure class="system-card tall" role="presentation" data-item="i">
@@ -268,8 +258,43 @@ console.log(cfReq?.audiences);
     </div>
 </div>
 `;
+
+  renderFragmentElements(cfReq, block);
+  
   if (!isAuthor) {
     moveInstrumentation(block, null);
     block.querySelectorAll('*').forEach((elem) => moveInstrumentation(elem, null));
   }
+}
+
+async function renderFragmentElements(data, container) {
+    Object.entries(data).forEach(([key, value]) => {
+    // If value is another fragment (object with recognizable structure), recurse
+    if (value && typeof value === 'object' && value._isContentFragment) { // Custom detection, adjust as needed
+      const nestedDiv = document.createElement('div');
+      nestedDiv.innerHTML = `<strong>${key} (nested fragment):</strong>`;
+      renderFragmentElements(value.elements, nestedDiv); // Recursively render nested fragment
+      container.appendChild(nestedDiv);
+    } else if (Array.isArray(value)) {
+      // For arrays (e.g., multi-fields or referenced lists)
+      value.forEach((item, idx) => {
+        if (item && typeof item === 'object' && item._isContentFragment) {
+          // Nested fragment in array
+          const nestedList = document.createElement('div');
+          nestedList.innerHTML = `<strong>${key}[${idx}] (nested fragment):</strong>`;
+          renderFragmentElements(item.elements, nestedList);
+          container.appendChild(nestedList);
+        } else {
+          const div = document.createElement('div');
+          div.innerHTML = `<strong>${key}[${idx}]:</strong> ${item}`;
+          container.appendChild(div);
+        }
+      });
+    } else {
+      // Primitive value
+      const div = document.createElement('div');
+      div.innerHTML = `<strong>${key}:</strong> ${value}`;
+      container.appendChild(div);
+    }
+  });
 }
