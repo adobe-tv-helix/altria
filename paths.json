@@ -9,6 +9,9 @@
   "includes": [
     "/content/altria-ue/",
     "/content/dam/altria/",
-    "/content/dam/altria/fragments/"
+    "/content/dam/altria/communications/",
+    "/content/dam/altria/audiences/",
+    "/content/dam/altria/brands/",
+    "/content/dam/altria-ue/"
   ]
 }
