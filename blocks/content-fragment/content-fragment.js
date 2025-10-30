@@ -51,17 +51,7 @@ export default async function decorate(block) {
           <p data-aue-prop="subject" data-aue-label="subject" data-aue-type="text" class='subject'>${
             cfReq?.subject
           }</p>
-          <p data-aue-prop="pretitle" data-aue-label="pretitle" data-aue-type="text" class='headline'>${
-            cfReq?.audiences[0].audienceType
-          }</p>
-          <p data-aue-prop="detail" data-aue-label="detail" data-aue-type="richtext" class='detail'>${
-            cfReq?.atAGlance?.html
-          }</p>
-          <p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
-            cfReq?.channels
-          }</p>
-          <p data-aue-label="sections-0" class='sections'>${
-            cfReq?.sections[0].label}</p>
+
       </div>
       <div class='banner-logo'>
       </div>
