@@ -88,6 +88,11 @@ function renderFragment(data, parentDiv, visited = new Set(), depth = 0) {
       div.innerHTML = `<strong>${key}:</strong> ${value.html}`;
       parentDiv.appendChild(div);
     }
+    else if (key === '_path' && value.includes('all-pm-usa-usstc-jmc-helix-and-njoy-direct-customers')) {
+      const div = document.createElement('div');
+      div.innerHTML = `<strong>Audience:</strong> All PM USA, USSTC, JMC, Helix, and NJOY Direct Customers`;
+      parentDiv.appendChild(div);
+    }
     else if (key !== '_path') {
       const div = document.createElement('div');
       div.innerHTML = `<strong>${key}:</strong> ${value}`;
