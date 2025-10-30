@@ -259,7 +259,7 @@ console.log(cfReq?.audiences);
 </div>
 `;
 
-  renderFragment(cfReq, block);
+  renderFragment(cfReq.item, block);
 
   if (!isAuthor) {
     moveInstrumentation(block, null);
