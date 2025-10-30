@@ -82,6 +82,8 @@ export default async function decorate(block) {
     } else if (brand._path.includes('us-smokeless-tobacco-company')) {
         brandsLabel = 'US Smokeless Tobacco Company';
     }
+
+    return `<p data-aue-label="brands-${idx}" class='brands'>${brandsLabel}</p>`;
   }).join('');
 
   block.innerHTML = `
