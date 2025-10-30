@@ -78,9 +78,9 @@ export default async function decorate(block) {
           <div>
             ${audiencesHtml}
           </div>
-          At a Glance:<div data-aue-prop="atAGlance" data-aue-label="At a Glance" data-aue-type="richtext" class='detail'>${
+          At a Glance:<p data-aue-prop="atAGlance" data-aue-label="At a Glance" data-aue-type="richtext" class='detail'>${
             cfReq?.atAGlance?.html
-          }</div>
+          }</p>
           Channel(s):<p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
             cfReq?.channels
           }</p>
