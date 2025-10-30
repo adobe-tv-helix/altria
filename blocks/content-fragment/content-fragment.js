@@ -50,12 +50,20 @@ export default async function decorate(block) {
     <p data-aue-label="sections-${idx}-body" class='sections'>${section.body?.html}</p>
     `).join('');
 
+  const audiencesHtml = (cfReq?.audiences || []).map((audience, idx) => `
+    <p data-aue-label="audiences-${idx}" class='audiences'>${audience._path}</p>
+    `).join('');
+
   block.innerHTML = `
-  <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="content fragment" data-aue-type="reference" data-aue-filter="cf">
-		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0), rgba(0,0,0,0) 80%) ,url(${aemAuthorUrl + cfReq.heroImage?._path});">
+    <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="Announcement CF" data-aue-type="reference" data-aue-filter="cf">
+		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0), rgba(0,0,0,0) 80%) ,url(${aemAuthorUrl + cfReq?.heroImage?._path});">
           Subject:<p data-aue-prop="subject" data-aue-label="subject" data-aue-type="text" class='subject'>${
             cfReq?.subject
           }</p>
+          Audiences:
+          <div>
+            ${audiencesHtml}
+          </div>
           At a Glance:<p data-aue-prop="atAGlance" data-aue-label="At a Glance" data-aue-type="richtext" class='detail'>${
             cfReq?.atAGlance?.html
           }</p>
