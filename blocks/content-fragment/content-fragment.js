@@ -61,9 +61,7 @@ export default async function decorate(block) {
             cfReq?.channels
           }</p>
           <p data-aue-prop="sections-0" data-aue-label="sections-0" class='sections'>${
-            cfReq?.sections[0].label
-            cfReq?.sections[0].body?.html
-          }</p>
+            cfReq?.sections[0].label}${cfReq?.sections[0].body.html}</p>
       </div>
       <div class='banner-logo'>
       </div>
