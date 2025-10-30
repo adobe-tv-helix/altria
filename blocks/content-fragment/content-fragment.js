@@ -44,7 +44,7 @@ export default async function decorate(block) {
   const itemId = `urn:aemconnection:${contentPath}/jcr:content/data/${variationName}`;
 
   block.setAttribute('data-aue-type', 'container');
-
+console.log(cfReq?.audiences?.brands);
   block.innerHTML = `
   <div class='main flex-spaced-wrap-between-reversed-top-block-1024'>
     ${cfReq?.subject ? `
