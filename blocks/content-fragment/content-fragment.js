@@ -55,7 +55,7 @@ export default async function decorate(block) {
             cfReq?.atAGlance?.html
           }</p>
           <p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
-            cfReq?.channels.toUpperCase()
+            cfReq?.channels
           }</p>
           <p data-aue-label="sections-0" class='sections'>${cfReq?.section[0].label}${cfReq?.section[0].body?.html}</p>
       </div>
