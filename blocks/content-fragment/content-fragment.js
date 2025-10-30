@@ -54,6 +54,9 @@ export default async function decorate(block) {
           <p data-aue-prop="detail" data-aue-label="detail" data-aue-type="richtext" class='detail'>${
             cfReq?.atAGlance?.html
           }</p>
+          <p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
+            cfReq?.channels
+          }</p>
       </div>
       <div class='banner-logo'>
       </div>
