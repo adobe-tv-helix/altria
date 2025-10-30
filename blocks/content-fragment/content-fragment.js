@@ -83,27 +83,27 @@ export default async function decorate(block) {
         brandsLabel = 'US Smokeless Tobacco Company';
     }
 
-    return `<p data-aue-label="brands-${idx}" class='brands'>${brandsLabel}</p>`;
+    return `<p data-aue-label="brands-${idx}" class='brands'>&nbsp;&nbsp;${brandsLabel}</p>`;
   }).join('');
 
   block.innerHTML = `
     <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="Announcement CF" data-aue-type="reference" data-aue-filter="cf">
 		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0), rgba(0,0,0,0) 80%) ,url(${aemAuthorUrl + cfReq?.heroImage?._path});">
-          Subject:<p data-aue-prop="subject" data-aue-label="Subject" data-aue-type="text" class='subject'>${
+          <strong>Subject:</strong><p data-aue-prop="subject" data-aue-label="Subject" data-aue-type="text" class='subject'>${
             cfReq?.subject
           }</p>
-          Audiences:
+          <strong>Audiences:</strong>
           <div>
             ${audiencesHtml}
             <p>&nbsp;&nbsp;Brands: ${brandsInAudiencesHtml}</p>
           </div>
-          At a Glance:<div data-aue-prop="atAGlance" data-aue-label="At a Glance" data-aue-filter="text" data-aue-type="richtext" class='detail'>${
+          <strong>At a Glance:</strong><div data-aue-prop="atAGlance" data-aue-label="At a Glance" data-aue-filter="text" data-aue-type="richtext" class='detail'>${
             cfReq?.atAGlance?.html
           }</div>
-          Channel(s):<p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
+          <strong>Channel(s):</strong><p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
             cfReq?.channels
           }</p>
-          Sections:
+          <strong>Sections:</strong>
           <div>
             ${sectionsHtml}
           </div>
