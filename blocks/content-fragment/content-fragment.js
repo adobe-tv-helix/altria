@@ -48,17 +48,20 @@ export default async function decorate(block) {
   block.innerHTML = `
   <div class='banner-content block' data-aue-resource=${itemId} data-aue-label="content fragment" data-aue-type="reference" data-aue-filter="cf">
 		<div class='banner-detail' style="background-image: linear-gradient(90deg,rgba(0,0,0,0), rgba(0,0,0,0) 80%) ,url(${aemAuthorUrl + cfReq.heroImage?._path});">
-          <p data-aue-prop="subject" data-aue-label="subject" data-aue-type="text" class='subject'>${
+          Subject:<p data-aue-prop="subject" data-aue-label="subject" data-aue-type="text" class='subject'>${
             cfReq?.subject
           }</p>
-          <p data-aue-prop="detail" data-aue-label="detail" data-aue-type="richtext" class='detail'>${
+          At a Glance:<p data-aue-prop="detail" data-aue-label="detail" data-aue-type="richtext" class='detail'>${
             cfReq?.atAGlance?.html
           }</p>
-          <p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
+          Channel(s):<p data-aue-prop="channels" data-aue-label="channels" class='channels'>${
             cfReq?.channels
           }</p>
-          <p data-aue-label="sections-0" class='sections'>${cfReq?.section[0].label}</p>
-          <p data-aue-label="sections-0-body" class='sections'>${cfReq?.section[0].body.html}</p>
+          Sections:
+          <div>
+            <p data-aue-label="sections-0" class='sections'>${cfReq?.section[0].label}</p>
+            <p data-aue-label="sections-0-body" class='sections'>${cfReq?.section[0].body.html}</p>
+          </div>
       </div>
       <div class='banner-logo'>
       </div>
